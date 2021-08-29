@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Epic Task - Users</title>
+</head>
+<body>
+	<h1>EPIC TASK</h1>
+	<h2>Usuários</h2>
+	
+	<a href="/person/new">Novo Usuário</a>
+	
+	<ul th:each="person : ${people}">
+		<li>
+			<p th:text="${person.email}"></p>
+		</li>
+	</ul>
+
+</body>
+</html>
