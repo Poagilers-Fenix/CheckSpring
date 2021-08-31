@@ -32,3 +32,21 @@ INSERT INTO User (name, email, pass, score) VALUES
 INSERT INTO User (name, email, pass, score) VALUES
 ('Gi', 'gi@gmail.com', '12345', 0);
 
+INSERT INTO User (name, email, pass, score) VALUES
+('Kaue', 'kaue@gmail.com', '12345', 100);
+
+INSERT INTO User (name, email, pass, score) VALUES
+('Dan', 'dan@gmail.com', '12345', 300);
+
+INSERT INTO User (name, email, pass, score) VALUES
+('Henrique', 'henrique@gmail.com', '12345', 100);
+
+INSERT INTO User (name, email, pass, score) VALUES
+('eric', 'eric@gmail.com', '12345', 150);
+
+
+
+
+
+
+

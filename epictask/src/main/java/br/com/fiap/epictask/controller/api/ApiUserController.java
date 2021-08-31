@@ -75,10 +75,13 @@ public class ApiUserController {
 	}
 	
 	@PutMapping("{id}")
-	public ResponseEntity<User> edit(@PathVariable Long id, @RequestBody User user){				
-		user.setId(id);
-		User newUser = repository.save(user);
-		return ResponseEntity.ok(newUser);
+	public ResponseEntity<User> edit(@PathVariable Long id, @RequestBody User user){
+		Optional<User> userFound = repository.findById(id);
+		if(userFound.isPresent()) {
+			repository.save(user);
+			return ResponseEntity.ok(user);
+		}
+		return ResponseEntity.notFound().build();
 	}
 
 }
