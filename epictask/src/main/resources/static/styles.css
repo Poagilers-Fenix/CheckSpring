@@ -1,0 +1,36 @@
+.table{
+	margin-top: 75px;
+}
+
+.text {
+	display: flex;
+	width: 250px;	
+	justify-content: center;
+	align-items: center;	
+}
+
+.form {
+	display: flex;
+	flex-direction: column;
+	margin-top: 50px;
+	margin-left: 50px;
+	
+}
+
+.span{
+	color: red;
+	margin-left: 15px;
+}
+
+.label{
+	margin-right: 22px;
+}
+
+.label2{
+	margin-right: 15px;
+}
+
+.buttonContainer{ 
+	margin-left: 50px;
+	margin-top: 50px;
+}

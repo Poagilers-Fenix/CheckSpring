@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Epic Task - Users</title>
+<link rel="stylesheet" href="styles.css" type="text/css">
+</head>
+<body>
+	<h1>EPIC TASK</h1>
+	<h2>Usuários</h2>
+	
+	<a href="/user/new">Novo Usuário</a>
+	
+	<table border="1" class="table">
+		<tr>
+			<th>Nome</th>
+			<th>Email</th>
+			<th>Score</th>
+		</tr>
+		<tr th:each="user : ${users}">
+			<td><p class="text" th:text="${user.name}"/></td>
+			<td><p class="text" th:text="${user.email}"/></td>
+			<td><p class="text" th:text="${user.score}"/></td>
+		</tr>
+	</table>
+
+
+</body>
+</html>

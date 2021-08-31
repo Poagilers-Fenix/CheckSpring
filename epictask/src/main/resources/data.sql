@@ -22,12 +22,13 @@ CREATE TABLE User (
 id bigint PRIMARY KEY auto_increment,
 name varchar(40),
 email varchar(50),
-pass varchar(20)
+pass varchar(20),
+score int
 );
 
-INSERT INTO User (name, email, pass) VALUES
-('Lari', 'lari@gmail.com', '12345');
+INSERT INTO User (name, email, pass, score) VALUES
+('Lari', 'lari@gmail.com', '12345', 0);
 
-INSERT INTO User (name, email, pass) VALUES
-('Gi', 'gi@gmail.com', '12345');
+INSERT INTO User (name, email, pass, score) VALUES
+('Gi', 'gi@gmail.com', '12345', 0);
 

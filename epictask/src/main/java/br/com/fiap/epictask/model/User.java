@@ -25,4 +25,6 @@ public class User {
 	
 	@Size(min = 5, message="A senha deve ter no mínimo 5 caracteres")
 	private String pass;
+	
+	private int score;
 }
