@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Epic Task - Form User</title>
+<link rel="stylesheet" href="styles.css" type="text/css">
+</head>
+<body>
+
+	<h1>Epic Task</h1>
+	<h2>Cadastrar Usuários</h2>
+	<form class="form" action="/user" method="post" th:object="${user}">
+			<div>
+				<label class="label" for="name">Nome</label>
+				<input name="name" id="name" th:field="*{name}">
+				<span class="span" th:errors="*{name}"></span>
+			</div>
+			<div>
+				<label class="label2" for="email">E-mail</label>
+				<input name="email" id="email" th:field="*{email}">
+				<span class="span" th:errors="*{email}"></span>
+			</div>
+			<div>
+				<label class="label" for="pass">Senha</label>
+				<input type="password" name="pass" id="pass" th:field="*{pass}">
+				<span class="span" th:errors="*{pass}"></span>
+			</div>
+			<div>
+				<button href="/user">Cancelar</button>
+				<button>Salvar</button>	
+			</div>
+	</form>
+	
+	
+
+</body>
+</html>

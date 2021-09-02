@@ -18,19 +18,12 @@ import br.com.fiap.epictask.repository.TaskRepository;
 @Controller
 public class TaskController {
 	
-	@Autowired // permite que o Sping revolva e injete beans na nossa classe
+	@Autowired 
 	private TaskRepository repository;
 	
 	@GetMapping("/task")
 	public ModelAndView index() {
-		//tasks é o nome da view - tasks.html
-		ModelAndView modelAndView = new ModelAndView("tasks");
-		//tasks é uma lista de tarefas
-		List<Task> tasks = repository.findAll();
-		//esse primeiro tasks é o nome do objeto pra recuperar no html 
-		//o segundo tasks é o objeto recuperado
-		modelAndView.addObject("tasks", tasks);
-		return modelAndView;
+		return getTasks();
 	}
 	
 	@RequestMapping("/task/new")
@@ -43,5 +36,12 @@ public class TaskController {
 		if(result.hasErrors()) return "task-form";
 		repository.save(task);
 		return "tasks";
+	}
+	
+	private ModelAndView getTasks() {
+		ModelAndView modelAndView = new ModelAndView("tasks");
+		List<Task> tasks = repository.findAll();
+		modelAndView.addObject("tasks", tasks);
+		return modelAndView;
 	}
 }

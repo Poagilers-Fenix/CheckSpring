@@ -1,6 +1,8 @@
 package br.com.fiap.epictask.controller.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -19,6 +21,8 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.net.URI;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import br.com.fiap.epictask.model.User;
 import br.com.fiap.epictask.repository.UserRepository;
 
@@ -30,22 +34,25 @@ public class ApiUserController {
 	private UserRepository repository;
 	
 	@GetMapping 
-	public Page<User> index(@RequestParam(required = false) String name,
-			 @PageableDefault Pageable pageable) {
+	@Cacheable("users")
+	public Page<User> index(
+			@RequestParam(required = false) String name,
+			@PageableDefault Pageable pageable) {
 		
 		if (name == null ) 
 			return repository.findAll(pageable);
 		
-		return repository.findByNameLike("%" + name + "%", pageable);
+		return repository
+				.findByNameContaining(name, pageable);
 	}
 	
 	@PostMapping
+	@CacheEvict(value="users", allEntries = true)
 	public ResponseEntity<User> create(
-			@RequestBody User user,
+			@RequestBody @Valid User user,
 			UriComponentsBuilder uriBuilder
 			) {
 		repository.save(user);
-		
 		URI uri = uriBuilder
 				.path("api/user/{id}")
 				.buildAndExpand(user.getId())
@@ -57,31 +64,35 @@ public class ApiUserController {
 	
 	@GetMapping("{id}")
 	public ResponseEntity<User> get(@PathVariable Long id) {
-		Optional<User> user = repository.findById(id);
-		if(user.isPresent())
-			return ResponseEntity.ok(user.get());
-		return ResponseEntity.notFound().build();
-		
+		return ResponseEntity.of(repository.findById(id));
 	}
 	
 	@DeleteMapping("{id}")
+	@CacheEvict(value="users", allEntries = true)
 	public ResponseEntity<User> delete(@PathVariable Long id) {
 		Optional<User> user = repository.findById(id);
-		if(user.isPresent()) {
-			repository.deleteById(id);
-			return ResponseEntity.ok(null);
+		if(user.isEmpty()) {
+			return ResponseEntity.notFound().build();
 		}
-		return ResponseEntity.notFound().build();
+		repository.deleteById(id);
+		return ResponseEntity.ok().build();
 	}
 	
 	@PutMapping("{id}")
-	public ResponseEntity<User> edit(@PathVariable Long id, @RequestBody User user){
-		Optional<User> userFound = repository.findById(id);
-		if(userFound.isPresent()) {
-			repository.save(user);
-			return ResponseEntity.ok(user);
-		}
-		return ResponseEntity.notFound().build();
+	@CacheEvict(value="users", allEntries = true)
+	public ResponseEntity<User> edit(@PathVariable Long id, @RequestBody User newUser){
+		Optional<User> optional = repository.findById(id);
+		
+		if(optional.isEmpty()) 
+			return ResponseEntity.notFound().build();
+		
+		User user = optional.get();
+		user.setName(newUser.getName());
+		user.setEmail(newUser.getEmail());
+		user.setPass(newUser.getPass());
+		
+		repository.save(user);
+		return ResponseEntity.ok(user);
 	}
 
 }

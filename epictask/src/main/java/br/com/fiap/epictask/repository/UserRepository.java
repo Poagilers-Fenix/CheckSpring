@@ -7,6 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import br.com.fiap.epictask.model.User;
 
 public interface UserRepository extends JpaRepository<User, Long>{
-	
-	Page<User> findByNameLike(String name, Pageable pageable);
+
+	Page<User> findByNameContaining(String name, Pageable pageable);
 }

@@ -17,13 +17,14 @@ public class User {
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@NotBlank
+	@NotBlank(message="O nome não pode ficar em branco.")
 	private String name;
 	
 	@Email(message="Insira um e-mail válido. Ex: google@gmail.com")
+	@NotBlank(message="O e-mail não pode ficar vazio.")
 	private String email;
 	
-	@Size(min = 5, message="A senha deve ter no mínimo 5 caracteres")
+	@Size(min = 8, message="A senha deve ter no mínimo 8 caracteres")
 	private String pass;
 	
 	private int score;

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Epic Task - Form Task</title>
+<style type="text/css">
+	span{ color: red}
+</style>
+</head>
+<body>
+
+	<h1>Epic Task</h1>
+	<h2>Cadastrar Tarefas</h2>
+	<!-- $ referencia objetos e * referencia o atributo de um objeto -->
+	<form action="/task" method="post" th:object="${task}">
+		<label for="title">Título</label>
+		<!-- th:field="*{title}  inidica que esse input é referente ao campo title-->
+		<input name="title" id="title" th:field="*{title}">
+		<!-- o conteúdo do span são os erros do atributo titulo do objeto task -->
+		<span th:errors="*{title}"></span>
+		
+		<label for="description">Descrição</label>
+		<textarea name="description" id="description" th:field="*{description}"></textarea>
+		<span th:errors="*{description}"></span>
+		
+		
+		<label for="points">Pontos</label>
+		<input type="range" name="points" id="points" min=10 max=500 th:field="*{points}">
+		<span th:errors="*{points}"></span>
+		
+		
+		<a href="/task">Cancelar</a>
+		<button>Salvar</button>
+	
+	</form>
+	
+	
+
+</body>
+</html>
